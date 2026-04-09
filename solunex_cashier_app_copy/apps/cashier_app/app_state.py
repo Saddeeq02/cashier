@@ -12,6 +12,14 @@ class AppState:
         self.api_base_url: str = "https://api.iandelaboratory.com"
         self.api_timeout: int = 15
 
+    def set_api_base_url(self, url: str):
+        """Dynamic override for LAN-based deployments."""
+        if not url:
+            return
+        if not url.startswith("http"):
+            url = f"http://{url}"
+        self.api_base_url = url.rstrip('/')
+
         # ----------------------------------
         # Authenticated Session (LOCKED)
         # ----------------------------------
